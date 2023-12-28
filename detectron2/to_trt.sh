@@ -1,0 +1,4 @@
+python3 tools/deploy/export_onnx.py --sample-image 1344x1344.jpg --config-file /workspace/models/blueberry_maskrcnn/custom_cfg.yaml --export-method tracing --format onnx --output exported_models MODEL.WEIGHTS /workspace/models/blueberry_maskrcnn/model_best.pth MODEL.DEVICE cuda
+python3 create_onnx.py --exported_onnx exported_models/model.onnx --onnx exported_models/converted.onnx --det2_config /workspace/models/blueberry_maskrcnn/custom_cfg.yaml --det2_weights /workspace/models/blueberry_maskrcnn/model_best.pth --sample_image 1344x1344.jpg
+python3 build_engine.py --onnx /workspace/detectron2/exported_models/converted.onnx --engine /workspace/models/blueberry_maskrcnn/model_best_fp16.trt --precision fp16
+python3 build_engine.py --onnx /workspace/detectron2/exported_models/converted.onnx --engine /workspace/models/blueberry_maskrcnn/model_best_fp32.trt --precision fp32
